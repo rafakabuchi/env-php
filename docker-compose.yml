@@ -1,23 +1,25 @@
-version: "3.1"
+version: '3.1'
 services:
-    db:
-        image: mysql
-        restart: always
-        ports:
-          - 3306:3306
-        environment:
-          MYSQL_ROOT_PASSWORD: admin
+  db:
+    image: mysql
+    restart: always
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: admin
+    volumes:
+      - ./datadir:/var/lib/mysql
 
-    adminer:
-        image: adminer
-        restart: always
-        ports:
-          - 8080:8080        
-      
-    app-host:
-        image: httpd
-        restart: always
-        ports:
-          - 8081:80
-        volumes:
-          - ./source:/usr/local/apache2/htdocs/
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+
+  apache:
+    image: httpd
+    restart: always
+    ports:
+      - 8081:80
+    volumes:
+      - ./source:/usr/local/apache2/htdocs/
